@@ -281,10 +281,6 @@ TW_THEME := portrait_hdpi
 TW_SCREEN_BLANK_ON_BOOT := true
 endif
 
-# Vendor init
-TARGET_INIT_VENDOR_LIB := libinit_X00TD
-TARGET_RECOVERY_DEVICE_MODULES := libinit_X00TD
-
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_HAS_QCOM_WLAN_SDK := true
