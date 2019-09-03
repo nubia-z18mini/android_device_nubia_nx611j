@@ -110,9 +110,6 @@ persist.debug.coresight.config=stm-events
 ##property to choose between virtual/external wfd display
 persist.sys.wfd.virtual=0
 
-# system prop for NFC DT
-ro.nfc.port=I2C
-
 #property for vendor specific library
 ro.vendor.at_library=libqti-at.so
 
@@ -194,7 +191,6 @@ ro.additionalbutton.operation=0
 persist.radio.multisim.config=dsds
 persist.radio.plmn_disable_data=true
 persist.vendor.qcomsysd.enabled=1
-persist.nfc.smartcard.config=SIM1
 keyguard.no_require_sim=true
 ro.com.android.dataroaming=false
 ro.carrier=unknown
