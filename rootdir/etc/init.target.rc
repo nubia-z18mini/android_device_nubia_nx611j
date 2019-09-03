@@ -98,6 +98,11 @@ on post-fs-data
     chown system system /dev/goodix_fp
     chmod 0777 /dev/goodix_fp
 
+# nubia display
+    chown system system /sys/kernel/lcd_enhance/cabc
+    chown system system /sys/kernel/lcd_enhance/lcd_power_on
+    chown system system /sys/kernel/lcd_enhance/lcd_power_off
+
 on boot
 # ADDED BY ZTEMT
 # add the sensor sysfs permission
