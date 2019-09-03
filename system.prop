@@ -1,0 +1,13 @@
+# set max brightness
+persist.sys.qcom-brightness=4095
+
+#ZTEMT add for Expose aux camera for below packages
+vendor.camera.aux.packagelist=com.android.camera,cn.nubia.factory,org.codeaurora.snapcam
+
+#ZTEMT add for get total camera number
+ro.total.camera.number=3
+#ZTEMT add for focus
+persist.camera.depth.focus.cb=0
+
+#ZTEMT audio offload disable
+audio.offload.disable=1

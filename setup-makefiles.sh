@@ -18,8 +18,8 @@
 set -e
 
 # Required!
-DEVICE=X00TD
-VENDOR=asus
+DEVICE=nx611j
+VENDOR=nubia
 
 INITIAL_COPYRIGHT_YEAR=2018
 

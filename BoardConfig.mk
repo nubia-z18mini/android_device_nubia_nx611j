@@ -22,17 +22,17 @@
 # definition file).
 #
 
-DEVICE_PATH := device/asus/X00TD
+DEVICE_PATH := device/nubia/nx611j
 
-BOARD_VENDOR := asus
+BOARD_VENDOR := nubia
 
 # Bootloader
-TARGET_BOOTLOADER_BOARD_NAME := sdm636
+TARGET_BOOTLOADER_BOARD_NAME := sdm660
 TARGET_NO_BOOTLOADER := true
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm660
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno509
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno512
 PRODUCT_COMPATIBILITY_MATRIX_LEVEL_OVERRIDE := 27
 
 # Architecture
@@ -51,7 +51,7 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_USES_64_BIT_BINDER := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := ASUS_X00TD,X00TD,X00T
+TARGET_OTA_ASSERT_DEVICE := nx611j,NX611J,nubia Z18mini
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc170000 androidboot.hardware=qcom user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 sched_enable_hmp=1 sched_enable_power_aware=1 service_locator.enable=1 swiotlb=1 androidboot.configfs=true androidboot.usbcontroller=a800000.dwc3
@@ -64,9 +64,8 @@ TARGET_COMPILE_WITH_MSM_KERNEL := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := aarch64-linux-android-
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/asus/sdm660
-TARGET_KERNEL_CONFIG := X00TD_defconfig
-TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_SOURCE := kernel/nubia/nx611j
+TARGET_KERNEL_CONFIG := sdm660-perf-NX611J_defconfig
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-hidl"
@@ -119,7 +118,6 @@ BOARD_SUPPORTS_SOUND_TRIGGER := true
 BOARD_USES_ALSA_AUDIO := true
 USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
-
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
@@ -201,12 +199,6 @@ TARGET_PROVIDES_LIBLIGHT := true
 # Media
 TARGET_USES_MEDIA_EXTENSIONS := true
 
-# NFC
-BOARD_NFC_CHIPSET := pn553
-BOARD_NFC_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
-NXP_CHIP_TYPE := 4
-TARGET_USES_NQ_NFC := true
-
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -234,6 +226,7 @@ TARGET_USES_INTERACTION_BOOST := true
 
 # Properties
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
+TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
 TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
 
 # QCOM hardware
@@ -259,7 +252,7 @@ TARGET_USE_SDCLANG := true
 
 # TWRP Support
 ifeq ($(WITH_TWRP),true)
-TARGET_RECOVERY_DEVICE_DIRS += device/asus/X00TD/twrp
+TARGET_RECOVERY_DEVICE_DIRS += device/nubia/nx611j/twrp
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
@@ -291,4 +284,4 @@ WPA_SUPPLICANT_VERSION := VER_0_8_X
 WIFI_DRIVER_OPERSTATE_PATH := "/sys/class/net/wlan0/operstate"
 
 # inherit from the proprietary version
--include vendor/asus/X00TD/BoardConfigVendor.mk
+-include vendor/nubia/nx611j/BoardConfigVendor.mk

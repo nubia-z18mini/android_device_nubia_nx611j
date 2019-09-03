@@ -17,8 +17,8 @@
 
 set -e
 
-DEVICE=X00TD
-VENDOR=asus
+DEVICE=nx611j
+VENDOR=nubia
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"

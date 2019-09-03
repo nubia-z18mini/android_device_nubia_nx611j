@@ -1,6 +1,6 @@
 [
   {
-    "repository": "android_kernel_asus_sdm660",
-    "target_path": "kernel/asus/sdm660"
+    "repository": "android_kernel_nubia_nx611j",
+    "target_path": "kernel/nubia/nx611j"
   }
 ]

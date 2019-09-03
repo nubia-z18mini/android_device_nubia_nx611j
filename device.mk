@@ -271,11 +271,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/qti_whitelist.xml:system/etc/sysconfig/qti_whitelist.xml
 
-# Manifest replacement for non NFC variant
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/manifest_no_nfc.xml:$(TARGET_COPY_OUT_VENDOR)/manifest_no_nfc.xml \
-    $(LOCAL_PATH)/rootdir/bin/device_check.sh:install/bin/device_check.sh
-
 # Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
@@ -367,7 +362,6 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    emmc_prop_init.sh \
     init.class_main.sh \
     init.crda.sh \
     init.mdm.sh \
@@ -478,7 +472,10 @@ PRODUCT_PACKAGES += \
 
 # Vendor security patch level
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2018-11-01
+    ro.lineage.build.vendor_security_patch=2018-02-05
+
+# Verity
+$(call inherit-product, build/target/product/verity.mk)
 
 # Vibrator
 PRODUCT_PACKAGES += \
@@ -507,4 +504,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
 
-$(call inherit-product, vendor/asus/X00TD/X00TD-vendor.mk)
+$(call inherit-product, vendor/nubia/nx611j/nx611j-vendor.mk)
