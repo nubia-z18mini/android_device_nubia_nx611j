@@ -28,6 +28,7 @@
 #
 
 on early-init
+    mkdir /system 0777 root root
     mkdir /firmware 0771 system system
     mkdir /bt_firmware 0771 system system
     mkdir /dsp 0771 media media
@@ -37,27 +38,27 @@ on init
     write /dev/stune/top-app/schedtune.sched_boost_no_override 1
     write /dev/stune/schedtune.colocate 0
     write /dev/stune/background/schedtune.colocate 0
+    write /dev/stune/system-background/schedtune.colocate 0
     write /dev/stune/foreground/schedtune.colocate 0
     write /dev/stune/top-app/schedtune.colocate 1
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    mount_all /vendor/etc/fstab.qcom
-    swapon_all /vendor/etc/fstab.qcom
-#Huaqin modify for ZQL1650-96 by lanshiming at 2018/1/29 start
-    setprop persist.alreadly_boot_resize true
-#Huaqin modify for ZQL1650-96 by lanshiming at 2018/1/29 end
-
-    # Keeping following partitions outside fstab file. As user may not have
-    # these partition flashed on the device. Failure to mount any partition in fstab file
-    # results in failure to launch late-start class.
-
+    # nubia mount persist firstly for resize stroage flag userdata_resized
     wait /dev/block/bootdevice/by-name/persist
     mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev noatime barrier=1
     mkdir /persist/data 0700 system system
     mkdir /persist/bms 0700 root system
     restorecon_recursive /persist
+    # nubia mount persist end
+    mount_all /vendor/etc/fstab.qcom
+    swapon_all /vendor/etc/fstab.qcom
+
+    # Keeping following partitions outside fstab file. As user may not have
+    # these partition flashed on the device. Failure to mount any partition in fstab file
+    # results in failure to launch late-start class.
+
     write /sys/kernel/boot_adsp/boot 1
 
 on post-fs
@@ -78,13 +79,180 @@ on post-fs-data
     mkdir /data/misc/seemp 0700 system system
     mkdir /data/misc/tloc 0700 system drmrpc
 
+# ADDED BY ZTEMT
+# add the nfc sysfs permission
+# NFC permission
+# NFC
+    chmod 777 /dev/sec-nfc
+    chown nfc nfc /dev/sec-nfc
+
+# NFC: create data/nfc for nv storage
+    mkdir /data/nfc 770 nfc nfc
+
+# NFC HAL suffix
+    setprop ro.hardware.nfc_nci sec
+
+# ADDED BY ZTEMT Lvsen END
+
+# goodix fingerprint
+    chown system system /dev/goodix_fp
+    chmod 0777 /dev/goodix_fp
+
 on boot
+# ADDED BY ZTEMT
+# add the sensor sysfs permission
+        #proximity
+	chmod 0777 /persist/sensors
+	chown system system /sys/class/proximity/proximity/enable
+
+	#txc-pa224
+	chown system system /sys/class/proximity/proximity/delay
+	chown system system /sys/class/proximity/proximity/chip_name
+	chown system system /sys/class/proximity/proximity/prox_uncover_max
+	chown system system /sys/class/proximity/proximity/prox_uncover_min
+	chown system system /sys/class/proximity/proximity/prox_debug
+	chown system system /sys/class/proximity/proximity/prox_init
+	chown system system /sys/class/proximity/proximity/prox_value
+	chown system system /sys/class/proximity/proximity/prox_data_max
+	chown system system /sys/class/proximity/proximity/prox_offset_cal
+
+	#ams-tmd2775
+	mkdir /persist/proxdata 0775 system system
+	chown system system /persist/proxdata
+	chmod 0775 /persist/proxdata
+	chown system system /sys/class/proximity/proximity/prox_manual_calibrate_threshold
+	chown system system /sys/class/proximity/proximity/prox_init
+	chown system system /sys/class/proximity/proximity/prox_threshold_init
+	chown system system /sys/class/proximity/proximity/prox_offset_init
+	chown system system /sys/class/proximity/proximity/prox_thres
+	chown system system /sys/class/proximity/proximity/chip_name
+	chown system system /sys/class/proximity/proximity/prox_threshold_cal_start
+	chown system system /sys/class/proximity/proximity/prox_offset_cal_start
+	chown system system /sys/class/proximity/proximity/prox_offset_cal
+	chown system system /sys/class/proximity/proximity/prox_data_safe_range_max
+	chown system system /sys/class/proximity/proximity/prox_data_safe_range_min
+	chown system system /sys/class/proximity/proximity/prox_calibrate
+	chown system system /sys/class/proximity/proximity/prox_calibrate_start
+	chown system system /sys/class/proximity/proximity/prox_calibrate_result
+	chown system system /sys/class/proximity/proximity/prox_data_max
+	chown system system /sys/class/proximity/proximity/prox_debug
+	chown system system /sys/class/proximity/proximity/prox_thres_max
+	chown system system /sys/class/proximity/proximity/prox_thres_min
+	chown system system /sys/class/proximity/proximity/prox_threshold_high
+	chown system system /sys/class/proximity/proximity/prox_threshold_low
+	chown system system /sys/class/proximity/proximity/prox_thres_param_high
+	chown system system /sys/class/proximity/proximity/prox_thres_param_low
+	chown system system /sys/class/proximity/proximity/prox_pluse_length
+	chown system system /sys/class/proximity/proximity/prox_thres_pulse_count
+	chown system system /sys/class/proximity/proximity/prox_wakelock
+	chown system system /sys/class/proximity/proximity/prox_phone_is_sleep
+	chown system system /sys/class/proximity/proximity/prox_irq
+	chown system system /sys/class/proximity/proximity/prox_offset_cal_verify
+	chown system system /sys/class/proximity/proximity/prox_calibrate_verify
+	chown system system /sys/class/proximity/proximity/prox_first_event
+	chown system system /sys/class/proximity/proximity/prox_thres_near
+
+	chmod 0644 /sys/class/proximity/proximity/prox_data_max
+	chmod 0644 /sys/class/proximity/proximity/prox_uncover_max
+	chmod 0644 /sys/class/proximity/proximity/prox_uncover_min
+	chmod 0644 /sys/class/proximity/proximity/prox_value
+	chmod 0644 /sys/class/proximity/proximity/prox_offset_cal
+	chmod 0644 /sys/class/proximity/proximity/dev_init
+	chmod 0644 /sys/class/proximity/proximity/prox_manual_calibrate_threshold
+	chmod 0644 /sys/class/proximity/proximity/chip_name
+	chmod 0644 /sys/class/proximity/proximity/prox_threshold_cal_start
+	chmod 0644 /sys/class/proximity/proximity/prox_offset_cal_start
+	chmod 0644 /sys/class/proximity/proximity/prox_data_safe_range_max
+	chmod 0644 /sys/class/proximity/proximity/prox_data_safe_range_min
+	chmod 0644 /sys/class/proximity/proximity/prox_calibrate_start
+	chmod 0644 /sys/class/proximity/proximity/prox_calibrate_result
+	chmod 0644 /sys/class/proximity/proximity/prox_debug
+	chmod 0644 /sys/class/proximity/proximity/prox_thres_max
+	chmod 0644 /sys/class/proximity/proximity/prox_thres_min
+	chmod 0644 /sys/class/proximity/proximity/prox_threshold_high
+	chmod 0644 /sys/class/proximity/proximity/prox_threshold_low
+	chmod 0644 /sys/class/proximity/proximity/prox_pluse_length
+	chmod 0644 /sys/class/proximity/proximity/prox_thres_pulse_count
+	chmod 0644 /sys/class/proximity/proximity/prox_irq
+	chmod 0644 /sys/class/proximity/proximity/prox_offset_cal_verify
+	chmod 0644 /sys/class/proximity/proximity/prox_calibrate_verify
+
+	#light
+	chown system system /sys/class/light/light/enable
+	chown system system /sys/class/light/light/tp_cfg
+	chown system system /sys/class/light/light/fac_calibrate
+	chown system system /sys/class/light/light/calibrate
+	chown system system /sys/class/light/light/light_value
+	chown system system /sys/class/light/light/flush
+	chown system system /sys/class/light/light/chip_name
+	chown system system /sys/class/light/light/delay
+	chown system system /sys/class/light/light/red_data
+	chown system system /sys/class/light/light/green_data
+	chown system system /sys/class/light/light/blue_data
+	chown system system /sys/class/light/light/clear_data
+	chown system system /sys/class/light/light/dump_reg
+	chown system system /sys/class/light/light/module_tpcolor
+	chown system system /sys/class/light/light/dump_tp_parameter
+	chown system system /sys/class/light/light/dev_init
+
+	chmod 0644 system system /sys/class/light/light/enable
+	chmod 0644 system system /sys/class/light/light/delay
+	chmod 0644 system system /sys/class/light/light/red_data
+	chmod 0644 system system /sys/class/light/light/tp_cfg
+	chmod 0644 system system /sys/class/light/light/fac_calibrate
+	chmod 0644 system system /sys/class/light/light/calibrate
+	chmod 0644 system system /sys/class/light/light/light_value
+	chmod 0644 system system /sys/class/light/light/flush
+	chmod 0644 system system /sys/class/light/light/chip_name
+	chmod 0644 system system /sys/class/light/light/blue_data
+	chmod 0644 system system /sys/class/light/light/green_data
+	chmod 0644 system system /sys/class/light/light/clear_data
+	chmod 0644 system system /sys/class/light/light/dump_reg
+	chmod 0644 system system /sys/class/light/light/module_tpcolor
+	chmod 0644 system system /sys/class/light/light/dump_tp_parameter
+	chmod 0644 system system /sys/class/light/light/dev_init
+
+	chown system system /persist/sensors/rgb_color_cfg
+	chown system system /persist/sensors/rgbc_cfg
+	chown system system /persist/sensors/als_cal_data
+	chown system system /persist/sensors/xtalk_cal
+	chmod 0644 /persist/sensors/rgb_color_cfg
+	chmod 0644 /prtsist/sensors/rgbc_cfg
+	chmod 0644 /prtsist/sensors/als_cal_data
+	chmod 0644 /prtsist/sensors/xtalk_cal
+
+        #ADD BY NUBIA FOR BREATHLED
+        chown system system /sys/class/leds/nubia_led/brightness
+        chown system system /sys/class/leds/nubia_led/outn
+        chown system system /sys/class/leds/nubia_led/grade_parameter
+        chown system system /sys/class/leds/nubia_led/fade_parameter
+        chown system system /sys/class/leds/nubia_led/blink_mode
+        chmod 0644 /sys/class/leds/nubia_led/brightness
+        chmod 0644 /sys/class/leds/nubia_led/outn
+        chmod 0644 /sys/class/leds/nubia_led/grade_parameter
+        chmod 0644 /sys/class/leds/nubia_led/fade_parameter
+        chmod 0644 /sys/class/leds/nubia_led/blink_mode
+	#ADD END BY NUBIA FOR BREATHLED
+# ADDED BY ZTEMT anbangjun END
+
+#add for sunwave fingerprint start
+chown system system /dev/sunwave_fp
+chmod 0660 /dev/sunwave_fp
+#add for sunwave fingerprint end
+
     start rmt_storage
     start rfs_access
     write /dev/cpuset/top-app/cpus 0-7
     write /dev/cpuset/foreground/cpus 0-7
-    write /dev/cpuset/background/cpus 0-7
-    write /dev/cpuset/system-background/cpus 0-7
+    write /dev/cpuset/foreground/boost/cpus 0-7
+    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/system-background/cpus 0-1
+    #NUBIA ADD FOR CPUSET
+    write /dev/cpuset/dex2oat/cpus 0-2,7
+    write /dev/cpuset/dex2oatfg/cpus 3,4-7
+    write /dev/cpuset/fullon/cpus 0-7
+    write /dev/cpuset/systemserver/cpus 0-7
+    #NUBIA END
     ####Regionalization config and prop files####
     chmod 0644 /persist/speccfg/spec
     chmod 0644 /persist/speccfg/devicetype
@@ -103,69 +271,18 @@ on boot
     chown system system /persist/speccfg/submask
     chown system system /persist/speccfg/partition
 
-    # Lights
-    chown system system /sys/class/leds/blue/brightness
-    chown system system /sys/class/leds/green/blink
-    chown system system /sys/class/leds/green/duty_pcts
-    chown system system /sys/class/leds/green/pause_hi
-    chown system system /sys/class/leds/green/pause_lo
-    chown system system /sys/class/leds/green/ramp_step_ms
-    chown system system /sys/class/leds/green/start_idx
-    chown system system /sys/class/leds/red/blink
-    chown system system /sys/class/leds/red/duty_pcts
-    chown system system /sys/class/leds/red/pause_hi
-    chown system system /sys/class/leds/red/pause_lo
-    chown system system /sys/class/leds/red/ramp_step_ms
-    chown system system /sys/class/leds/red/start_idx
-
-    # Button backlight
-    chown system system /sys/class/leds/lcd-backlight/brightness
-
-#Huaqin add for sensors permission-ZQL1650-141 by chenyijun5 at 2018/2/1 start
-    chmod 0644 /sys/class/sensors/stk3x1x-proximity/sensors_enable
-    chmod 0644 /sys/class/sensors/stk3x1x-proximity/sensors_delay
-    chmod 0644 /sys/class/sensors/stk3x1x-proximity/sensors_calibrate
-    chmod 0644 /sys/class/sensors/stk3x1x-proximity/sensors_enable_wakeup
-    chmod 0644 /sys/class/sensors/stk3x1x-proximity/sensors_flush
-    chown system system /sys/class/sensors/stk3x1x-proximity/sensors_enable
-    chown system system /sys/class/sensors/stk3x1x-proximity/sensors_delay
-    chown system system /sys/class/sensors/stk3x1x-proximity/sensors_calibrate
-    chown system system /sys/class/sensors/stk3x1x-proximity/sensors_enable_wakeup
-    chown system system /sys/class/sensors/stk3x1x-proximity/sensors_flush
-
-    chmod 0644 /sys/class/sensors/stk3x1x-light/sensors_enable
-    chmod 0644 /sys/class/sensors/stk3x1x-light/sensors_delay
-    chmod 0644 /sys/class/sensors/stk3x1x-light/sensors_calibrate
-    chmod 0644 /sys/class/sensors/stk3x1x-light/sensors_enable_wakeup
-    chmod 0644 /sys/class/sensors/stk3x1x-light/sensors_flush
-    chown system system /sys/class/sensors/stk3x1x-light/sensors_enable
-    chown system system /sys/class/sensors/stk3x1x-light/sensors_delay
-    chown system system /sys/class/sensors/stk3x1x-light/sensors_calibrate
-    chown system system /sys/class/sensors/stk3x1x-light/sensors_enable_wakeup
-    chown system system /sys/class/sensors/stk3x1x-light/sensors_flush
-#Huaqin add for sensors permission-ZQL1650-141 by chenyijun5 at 2018/2/1 end
-
-#Huaqin add for TT1185847 by lingyuguo at 2018/05/16 start
-    chown system system /proc/tpd_gesture
-    chmod 0644 /proc/tpd_gesture
-#Huaqin add for TT1185847 by lingyuguo at 2018/05/16 end
-
-#Huaqin add or ZQL1650-1072 by zhuqiang at 2018/04/23 start
-    chown radio radio sys/module/stk3x1x/parameters/call_status_flag
-#Huaqin add for ZQL1650-1072 by zhuqiang at 2018/04/23 end
-
 #Load WLAN driver
+   insmod /vendor/lib/modules/qca_cld3/qca_cld3_wlan.ko
    setprop wlan.driver.status "ok"
-   chown wifi wifi /sys/module/wlan/parameters/fwpath
 
 #Peripheral manager
-service per_mgr /vendor/bin/pm-service
+service per_mgr /system/vendor/bin/pm-service
     class core
     user system
     group system
     ioprio rt 4
 
-service per_proxy /vendor/bin/pm-proxy
+service per_proxy /system/vendor/bin/pm-proxy
     class core
     user system
     group system
@@ -214,7 +331,7 @@ service qseecomd /vendor/bin/qseecomd
    user root
    group root
 
-#service mpdecision /vendor/bin/mpdecision --avg_comp
+#service mpdecision /system/vendor/bin/mpdecision --avg_comp
 #   user root
 #   disabled
 #
@@ -223,7 +340,7 @@ service qseecomd /vendor/bin/qseecomd
 #   group system
 #   disabled
 #
-service thermal-engine /vendor/bin/thermal-engine
+service thermal-engine /system/vendor/bin/thermal-engine
    class main
    user root
    socket thermal-send-client stream 0666 system system
@@ -240,7 +357,7 @@ service thermal-engine /vendor/bin/thermal-engine
 #    class core
 #    oneshot
 #
-service time_daemon /vendor/bin/time_daemon
+service time_daemon /system/vendor/bin/time_daemon
    class late_start
    user root
    group root
@@ -250,60 +367,60 @@ service adsprpcd_root /system/bin/adsprpcd
    user media
    group media
 
-service adsprpcd /vendor/bin/adsprpcd audiopd
+service adsprpcd /system/vendor/bin/adsprpcd audiopd
    class main
    user media
    group media
 
-service hbtp /vendor/bin/hbtp_daemon
+service hbtp /system/vendor/bin/hbtp_daemon
     class main
     user system
     group system
     disabled
 
-service audiod /vendor/bin/audiod
+service audiod /system/vendor/bin/audiod
    class late_start
    user system
    group system
 #
-#service usf_tester /vendor/bin/usf_tester
+#service usf_tester /system/vendor/bin/usf_tester
 #    user system
 #    group system inet
 #    disabled
 #
-#service usf_epos /vendor/bin/usf_epos
+#service usf_epos /system/vendor/bin/usf_epos
 #    user system
 #    group system inet
 #    disabled
 #
-#service usf_gesture /vendor/bin/usf_gesture
-#    user system
-#    group system inet
-#    disabled
-#
-
-#service usf_sync_gesture /vendor/bin/usf_sync_gesture
+#service usf_gesture /system/vendor/bin/usf_gesture
 #    user system
 #    group system inet
 #    disabled
 #
 
-#service usf_p2p /vendor/bin/usf_p2p
+#service usf_sync_gesture /system/vendor/bin/usf_sync_gesture
 #    user system
 #    group system inet
 #    disabled
 #
-#service usf_hovering /vendor/bin/usf_hovering
+
+#service usf_p2p /system/vendor/bin/usf_p2p
 #    user system
 #    group system inet
 #    disabled
 #
-#service usf_proximity /vendor/bin/usf_proximity
+#service usf_hovering /system/vendor/bin/usf_hovering
 #    user system
 #    group system inet
 #    disabled
 #
-#service usf-post-boot /vendor/bin/sh /system/etc/usf_post_boot.sh
+#service usf_proximity /system/vendor/bin/usf_proximity
+#    user system
+#    group system inet
+#    disabled
+#
+#service usf-post-boot /system/vendor/bin/sh /system/etc/usf_post_boot.sh
 #    class late_start
 #    user root
 #    disabled
@@ -327,13 +444,13 @@ service audiod /vendor/bin/audiod
 #    chown system drmrpc /sys/devices/f9966000.i2c/i2c-1/1-0020/secure_touch
 #
 #
-service imsqmidaemon /vendor/bin/imsqmidaemon
+service imsqmidaemon /system/vendor/bin/imsqmidaemon
     class main
     user system
     socket ims_qmid stream 0660 system radio
     group radio log diag
 
-service imsdatadaemon /vendor/bin/imsdatadaemon
+service imsdatadaemon /system/vendor/bin/imsdatadaemon
     class main
     user system
     socket ims_datad stream 0660 system radio
@@ -377,32 +494,32 @@ service imsdatadaemon /vendor/bin/imsdatadaemon
 #    start mdm_helper_proxy
 #
 ## QCA1530 SoC core detect
-#service gnss-detect /vendor/bin/gnss.qca1530.sh detect
+#service gnss-detect /system/vendor/bin/gnss.qca1530.sh detect
 #   class core
 #   oneshot
 
-service energy-awareness /vendor/bin/energy-awareness
+service energy-awareness /system/vendor/bin/energy-awareness
     class main
     user system
     group system
     oneshot
 
-service mdtpd /vendor/bin/mdtpd
+service mdtpd /system/vendor/bin/mdtpd
     class late_start
     user root
     group system radio drmrpc
 
-service pd_mapper /vendor/bin/pd-mapper
+service pd_mapper /system/vendor/bin/pd-mapper
      class core
 
 #
 ## QCA1530 SoC late_start group trigger
-#service gnss-init /vendor/bin/gnss.qca1530.sh init
+#service gnss-init /system/vendor/bin/gnss.qca1530.sh init
 #   class late_start
 #   oneshot
 #
 ## QCA1530 SoC Service Daemon
-#service gnss-svcd /vendor/bin/gnss.qca1530.sh start
+#service gnss-svcd /system/vendor/bin/gnss.qca1530.sh start
 #   class late_start
 #   user root
 #   group gps system qcom_diag diag log inet net_raw
@@ -411,24 +528,33 @@ service pd_mapper /vendor/bin/pd-mapper
 on property:vendor.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
 
-service ims_rtp_daemon /vendor/bin/ims_rtp_daemon
+service ims_rtp_daemon /system/vendor/bin/ims_rtp_daemon
    class main
    user system
    group radio diag inet log
    disabled
 
-service vendor.imsrcsservice /vendor/bin/imsrcsd
+service vendor.imsrcsservice /system/vendor/bin/imsrcsd
    class main
    user system
    group radio diag inet log
    disabled
+
+service powerofflog /system/bin/sh /system/etc/fg_logs_start.sh /cache/nubialog
+    disabled
+    oneshot
+    group root shell
+    seclabel u:r:powerofflog:s0
+
+on property:sys.poweroffcharge.control=on
+    start powerofflog
 
 on property:vendor.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
     start vendor.imsrcsservice
 
 
-service ppd /vendor/bin/mm-pp-dpps
+service ppd /system/vendor/bin/mm-pp-dpps
     class late_start
     user system
     group system graphics
@@ -453,9 +579,6 @@ on property:init.svc.zygote=running
 on property:init.svc.zygote=restarting
     stop ppd
 
-on property:sys.boot_completed=1
-    setprop sys.io.scheduler "bfq"
-
 on charger
     load_system_props
     start qcom-post-boot
@@ -470,7 +593,7 @@ on charger
 #    user system
 #    group drmrpc
 #
-#service adsprpcd /vendor/bin/adsprpcd
+#service adsprpcd /system/vendor/bin/adsprpcd
 #   class main
 #   user media
 #   group media
@@ -498,7 +621,7 @@ service tlocd /system/bin/tloc_daemon
     user system
     group drmrpc
 
-service hvdcp_opti /vendor/bin/hvdcp_opti
+service hvdcp_opti /system/vendor/bin/hvdcp_opti
      class main
      user root
      group system wakelock
@@ -507,14 +630,18 @@ service smcinvoked /system/bin/smcinvoked
    class main
    user system
    group system
+on late-fs
+# boot time fs tune
+   write /sys/block/mmcblk0/queue/iostats 0
+   write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+   write /sys/block/mmcblk0/queue/iosched/slice_idle 0
+   write /sys/block/mmcblk0/queue/nr_requests 256
 
-#Huaqin modify for disable sar in Indonesia by chenyijun5 at 2018/03/20 start
-on property:ro.config.versatility=ID
-    write /sys/module/sx9310/parameters/sar_switcher 1
+on property:sys.boot_completed=1
+# end boot time fs tune
+   write /sys/block/mmcblk0/queue/iostats 1
+   write /sys/block/mmcblk0/queue/read_ahead_kb 128
+   write /sys/block/mmcblk0/queue/iosched/slice_idle 10
+   write /sys/block/mmcblk0/queue/nr_requests 128
 
-#Huaqin modify for disable sar in Indonesia by chenyijun5 at 2018/03/20 end
-#Huaqin porting nfc for ZQL1650-1157 by daiweiwei at 2018/4/17 start
-on boot
-    chmod 0666 /dev/nq-nci
-    chown system system /dev/nq-nci
-#Huaqin porting nfc for ZQL1650-1157 by daiweiwei at 2018/4/17 end
+

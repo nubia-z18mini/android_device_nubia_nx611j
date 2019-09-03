@@ -189,7 +189,7 @@ persist.asus.led.on=1
 
 # Vendor starts
 video.disable.ubwc=1
-ro.hardware.nfc_nci=nqx.default
+ro.hardware.nfc_nci=sec
 ro.additionalbutton.operation=0
 persist.radio.multisim.config=dsds
 persist.radio.plmn_disable_data=true
