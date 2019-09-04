@@ -1750,46 +1750,18 @@ vendor/lib64/com.qualcomm.qti.dpm.api@1.0_vendor.so
 vendor/lib64/libdpmqmihal.so
 
 # DRM
-lib/libGPTEE_system.so
-lib/libQTEEConnector_system.so
-lib/vendor.qti.hardware.qteeconnector@1.0.so
 lib64/libGPTEE_system.so
 lib64/libQTEEConnector_system.so
 lib64/vendor.qti.hardware.qteeconnector@1.0.so
+lib/libGPTEE_system.so
+lib/libQTEEConnector_system.so
+lib/vendor.qti.hardware.qteeconnector@1.0.so
+vendor/bin/e_loop
 vendor/bin/hw/android.hardware.drm@1.0-service.widevine
 vendor/bin/hw/vendor.qti.hardware.qteeconnector@1.0-service
-vendor/bin/e_loop
 vendor/bin/qseecomd
 vendor/etc/init/android.hardware.drm@1.0-service.widevine.rc
 vendor/etc/init/vendor.qti.hardware.qteeconnector@1.0-service.rc
-vendor/lib/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
-vendor/lib/libbase64.so
-vendor/lib/libcppf.so
-vendor/lib/libdrmfs.so
-vendor/lib/libdrmtime.so
-vendor/lib/libGPreqcancel.so
-vendor/lib/libGPreqcancel_svc.so
-vendor/lib/libGPTEE_vendor.so
-vendor/lib/libmm-hdcpmgr.so
-vendor/lib/libqisl.so
-vendor/lib/libQSEEComAPI.so
-vendor/lib/libQTEEConnector_vendor.so
-vendor/lib/librmp.so
-vendor/lib/librpmb.so
-vendor/lib/libsdedrm.so
-vendor/lib/libsecureui.so
-vendor/lib/libsecureui_svcsock.so
-vendor/lib/libSecureUILib.so
-vendor/lib/libsi.so
-vendor/lib/libssd.so
-vendor/lib/libStDrvInt.so
-vendor/lib/libtzdrmgenprov.so
-vendor/lib/qcdrm/playready/lib/drm/libdrmprplugin_customer.so
-vendor/lib/qcdrm/playready/lib/libprdrmdecrypt_customer.so
-vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
-vendor/lib/qcdrm/playready/lib/mediadrm/libprmediadrmdecrypt_customer.so
-vendor/lib/qcdrm/playready/lib/mediadrm/libprmediadrmplugin_customer.so
-vendor/lib/vendor.qti.hardware.qteeconnector@1.0_vendor.so
 vendor/lib64/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
 vendor/lib64/libbase64.so
 vendor/lib64/libdrmfs.so
@@ -1812,6 +1784,33 @@ vendor/lib64/libssd.so
 vendor/lib64/libStDrvInt.so
 vendor/lib64/libtzdrmgenprov.so
 vendor/lib64/vendor.qti.hardware.qteeconnector@1.0_vendor.so
+vendor/lib/hw/vendor.qti.hardware.qteeconnector@1.0-impl.so
+vendor/lib/libbase64.so
+vendor/lib/libcppf.so
+vendor/lib/libdrmfs.so
+vendor/lib/libdrmtime.so
+vendor/lib/libGPreqcancel.so
+vendor/lib/libGPreqcancel_svc.so
+vendor/lib/libGPTEE_vendor.so
+vendor/lib/libmm-hdcpmgr.so
+vendor/lib/libqisl.so
+vendor/lib/libQSEEComAPI.so
+vendor/lib/libQTEEConnector_vendor.so
+vendor/lib/librmp.so
+vendor/lib/librpmb.so
+vendor/lib/libsdedrm.so
+vendor/lib/libsecureui.so
+vendor/lib/libsecureui_svcsock.so
+vendor/lib/libsi.so
+vendor/lib/libssd.so
+vendor/lib/libStDrvInt.so
+vendor/lib/libtzdrmgenprov.so
+vendor/lib/qcdrm/playready/lib/drm/libdrmprplugin_customer.so
+vendor/lib/qcdrm/playready/lib/libprdrmdecrypt_customer.so
+vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
+vendor/lib/qcdrm/playready/lib/mediadrm/libprmediadrmdecrypt_customer.so
+vendor/lib/qcdrm/playready/lib/mediadrm/libprmediadrmplugin_customer.so
+vendor/lib/vendor.qti.hardware.qteeconnector@1.0_vendor.so
 
 # DSP
 lib/libsdsprpc_system.so
@@ -1871,17 +1870,12 @@ vendor/lib64/vendor.qti.hardware.fm@1.0_vendor.so
 vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so
 
 # Gatekeeper
-bin/gatekeeperd:vendor/bin/gatekeeperd
-etc/init/gatekeeperd.rc:vendor/etc/init/gatekeeperd.rc
-lib/libgatekeeper.so:vendor/lib/libgatekeeper.so
-lib64/libgatekeeper.so:vendor/lib64/libgatekeeper.so
-lib64/android.hardware.gatekeeper@1.0.so:vendor/lib64/android.hardware.gatekeeper@1.0.so
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
-vendor/lib/hw/android.hardware.gatekeeper@1.0-impl-qti.so
-vendor/lib/hw/gatekeeper.sdm660.so
 vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so
 vendor/lib64/hw/gatekeeper.sdm660.so
+vendor/lib/hw/android.hardware.gatekeeper@1.0-impl-qti.so
+vendor/lib/hw/gatekeeper.sdm660.so
 
 # GPS
 etc/permissions/com.qti.location.sdk.xml
@@ -2054,18 +2048,18 @@ vendor/lib64/libtinyxml2_1.so
 # Keymaster
 vendor/bin/hw/android.hardware.keymaster@3.0-service-qti
 vendor/etc/init/android.hardware.keymaster@3.0-service-qti.rc
-vendor/lib/hw/android.hardware.keymaster@3.0-impl-qti.so
-vendor/lib/libkeymasterutils.so
-vendor/lib/libkeymasterprovision.so
-vendor/lib/libkeymasterdeviceutils.so
 vendor/lib64/hw/android.hardware.keymaster@3.0-impl-qti.so
-vendor/lib64/libkeymasterutils.so
-vendor/lib64/libkeymasterprovision.so
 vendor/lib64/libkeymasterdeviceutils.so
+vendor/lib64/libkeymasterprovision.so
+vendor/lib64/libkeymasterutils.so
+vendor/lib/hw/android.hardware.keymaster@3.0-impl-qti.so
+vendor/lib/libkeymasterdeviceutils.so
+vendor/lib/libkeymasterprovision.so
+vendor/lib/libkeymasterutils.so
 
 # Keystore
-vendor/lib/hw/keystore.sdm660.so
 vendor/lib64/hw/keystore.sdm660.so
+vendor/lib/hw/keystore.sdm660.so
 
 # Listen
 lib/liblistenjni.so
@@ -2518,8 +2512,9 @@ vendor/lib/libvraudio_client.so
 vendor/lib64/libvraudio_client.so
 
 # WideWine
-vendor/lib/mediadrm/libwvdrmengine.so
 vendor/lib64/mediadrm/libwvdrmengine.so
+vendor/lib/libwvhidl.so
+vendor/lib/mediadrm/libwvdrmengine.so
 
 # WiFi
 vendor/bin/cnss_diag
