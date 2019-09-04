@@ -123,21 +123,3 @@ on ffbm
     trigger early-boot
     trigger boot
     trigger mmi
-
-#Huaqin modiy for log sepolicy to system by zhangjingzhi at 20180306 start
-setprop debug.charger.on 1
-
-#Huaqin add for control charge by zhangjingzhi at 20180129 start
-on boot
-    chown system system /sys/class/power_supply/battery/charging_enabled
-    chmod 0666 /sys/class/power_supply/battery/charging_enabled
-    chown system system /sys/class/power_supply/battery/input_suspend
-    chmod 0666 /sys/class/power_supply/battery/input_suspend
-#Huaqin add for control charge by zhangjingzhi at 20180129 end
-
-#Huaqin modify for enable diag by zhangjingzhi at 20180130 for rom start
-on property:gsm.diag.enable=1
-    setprop sys.diag.enable 1
-on property:sys.diag.enable=1
-    setprop sys.usb.config ${ro.usb.firstboot.config}
-#Huaqin modify for enable diag by zhangjingzhi at 20180130 for rom end
