@@ -136,15 +136,6 @@
 /dev/system_health_monitor 0644  radio      system
 /dev/mdss_rotator         0664   system     system
 
-/* Huaqin modify for ZQL1650-143 by wangxiang at 2018/01/23 start */
-# fingerprint
-/dev/fpsdev0              0666   system     system
-/* Huaqin modify for ZQL1650-143 by wangxiang at 2018/01/23 end */
-
-/* Huaqin add for ZQL1650-143 by wangxiang at 2018/02/09 end */
-/dev/goodix_fp            0666   system     system
-/* Huaqin add for ZQL1650-143 by wangxiang at 2018/02/09 end */
-
 # wlan
 /dev/wcnss_wlan           0660   system     system
 /dev/wcnss_ctrl           0660   system     system
