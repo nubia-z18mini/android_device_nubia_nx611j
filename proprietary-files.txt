@@ -2518,10 +2518,7 @@ vendor/lib/libwvhidl.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # WiFi
-vendor/bin/cnss_diag
 vendor/bin/cnss-daemon
-vendor/bin/fstman
-vendor/lib64/vendor.qti.hardware.wifi.supplicant@1.0_vendor.so
 
 # Wi-Fi Display
 -app/WfdService/WfdService.apk
