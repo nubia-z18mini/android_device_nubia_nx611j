@@ -1,6 +1,3 @@
-# set max brightness
-persist.sys.qcom-brightness=4095
-
 #ZTEMT add for Expose aux camera for below packages
 vendor.camera.aux.packagelist=com.android.camera,cn.nubia.factory,org.codeaurora.snapcam
 

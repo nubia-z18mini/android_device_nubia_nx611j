@@ -122,7 +122,7 @@ rgb_to_brightness(struct light_state_t const* state)
 {
     int color = state->color & 0x00ffffff;
     return ((77*((color>>16)&0x00ff))
-            + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 8;
+            + (150*((color>>8)&0x00ff)) + (29*(color&0x00ff))) >> 4;
 }
 
 static int
