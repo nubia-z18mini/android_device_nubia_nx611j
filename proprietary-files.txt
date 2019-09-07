@@ -1715,7 +1715,7 @@ vendor/lib64/libwqe.so
 vendor/lib64/libxml.so
 vendor/lib64/vendor.qti.hardware.data.latency@1.0_vendor.so
 
-# Display calibration
+# Display
 etc/permissions/com.qti.snapdragon.sdk.display.xml
 -framework/com.qti.snapdragon.sdk.display.jar
 lib/libsd_sdk_display.so
@@ -1739,6 +1739,9 @@ vendor/lib/libsdmextension.so
 vendor/lib64/libsdm-color.so
 vendor/lib64/libsdm-diag.so
 vendor/lib64/libsdmextension.so
+
+# Display Calibration
+vendor/etc/qdcm_calib_data_jdi_hx83112a_1080_2160_5p65_video_dsi_panel.xml
 
 # DPM
 bin/dpmd
@@ -1846,10 +1849,10 @@ lib/vendor.qti.esepowermanager@1.0.so
 lib64/vendor.qti.esepowermanager@1.0.so
 vendor/bin/hw/vendor.qti.esepowermanager@1.0-service
 vendor/etc/init/vendor.qti.esepowermanager@1.0-service.rc
-vendor/lib/vendor.qti.esepowermanager@1.0_vendor.so
 vendor/lib/hw/vendor.qti.esepowermanager@1.0-impl.so
-vendor/lib64/vendor.qti.esepowermanager@1.0_vendor.so
+vendor/lib/vendor.qti.esepowermanager@1.0_vendor.so
 vendor/lib64/hw/vendor.qti.esepowermanager@1.0-impl.so
+vendor/lib64/vendor.qti.esepowermanager@1.0_vendor.so
 
 # Factory
 lib/vendor.qti.hardware.factory@1.0.so
@@ -1867,13 +1870,13 @@ vendor/lib64/libFidoCrypto_vendor.so
 vendor/lib64/libFIDOKeyProvisioning.so
 
 # Fingerprint
+vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
 vendor/lib/hw/libteeclientjni.so
 vendor/lib64/hw/libteeclientjni.so
 
 # Fingerprint sensor
 framework/vendor.qti.hardware.fingerprint-V1.0-java.jar
 vendor/bin/qfp-daemon
-vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
 vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.rc
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib64/libqfp-service.so
@@ -1975,7 +1978,7 @@ vendor/lib64/libxtadapter.so
 vendor/lib64/libxtwifi_ulp_adaptor.so
 vendor/lib64/vendor.qti.gnss@1.0_vendor.so
 
-# GPU firmware
+# Graphics firmware
 vendor/firmware/a225p5_pm4.fw
 vendor/firmware/a225_pfp.fw
 vendor/firmware/a225_pm4.fw
@@ -1995,14 +1998,14 @@ vendor/firmware/a512_zap.b01
 vendor/firmware/a512_zap.b02
 vendor/firmware/a512_zap.elf
 vendor/firmware/a512_zap.mdt
-vendor/firmware/a530_gpmu.fw2
-vendor/firmware/a530_pfp.fw
-vendor/firmware/a530_pm4.fw
 vendor/firmware/a530v1_pfp.fw
 vendor/firmware/a530v1_pm4.fw
 vendor/firmware/a530v2_seq.fw2
 vendor/firmware/a530v3_gpmu.fw2
 vendor/firmware/a530v3_seq.fw2
+vendor/firmware/a530_gpmu.fw2
+vendor/firmware/a530_pfp.fw
+vendor/firmware/a530_pm4.fw
 vendor/firmware/a540_gpmu.fw2
 vendor/firmware/leia_pfp_470.fw
 vendor/firmware/leia_pm4_470.fw
