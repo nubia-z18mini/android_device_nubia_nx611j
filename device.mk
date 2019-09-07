@@ -234,10 +234,6 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0_vendor \
     android.hidl.manager@1.0-java
 
-# IMS
-PRODUCT_PACKAGES += \
-    ims-ext-common
-
 # IPv6
 PRODUCT_PACKAGES += \
     ebtables \
@@ -386,16 +382,18 @@ PRODUCT_PACKAGES += \
 
 # RIL
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.0 \
-    android.hardware.radio@1.1 \
-    android.hardware.radio.deprecated@1.0 \
     rild \
     librmnetctl \
     libxml2 \
     libprotobuf-cpp-full
 
+PRODUCT_PACKAGES += \
+    ims-ext-common \
+    telephony-ext
+
 PRODUCT_BOOT_JARS += \
-    qcrilhook
+    qcrilhook \
+    telephony-ext
 
 # QMI
 PRODUCT_PACKAGES += \
@@ -422,14 +420,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     soter
-
-# Telephony
-PRODUCT_PACKAGES += \
-    qti-telephony-common \
-    telephony-ext
-
-PRODUCT_BOOT_JARS += \
-    telephony-ext
 
 # Tetheroffload
 PRODUCT_PACKAGES += \

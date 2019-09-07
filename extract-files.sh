@@ -70,10 +70,4 @@ sed -i "s|/system/bin/linker64|/sbin/linker64\x0\x0\x0\x0\x0\x0|g" "$TWRP_QSEECO
 sed -i "s|/system/bin/linker64|/sbin/linker64\x0\x0\x0\x0\x0\x0|g" "$TWRP_GATEKEEPER"
 sed -i "s|/system/bin/linker64|/sbin/linker64\x0\x0\x0\x0\x0\x0|g" "$TWRP_KEYMASTER"
 
-IMSCMSERVICE="$BLOB_ROOT"/vendor/etc/permissions/com.qualcomm.qti.imscmservice.xml
-IMSCMSERVICE_1_1="$BLOB_ROOT"/vendor/etc/permissions/com.qualcomm.qti.imscmservice_1_1.xml
-
-sed -i "s|/system/framework/|/vendor/framework/|g" "$IMSCMSERVICE"
-sed -i "s|/system/framework/|/vendor/framework/|g" "$IMSCMSERVICE_1_1"
-
 . "$MY_DIR"/setup-makefiles.sh
