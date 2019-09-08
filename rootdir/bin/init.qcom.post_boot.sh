@@ -242,7 +242,7 @@ function configure_zram_parameters() {
             echo lz4 > /sys/block/zram0/comp_algorithm
             echo 805306368 > /sys/block/zram0/disksize
         else
-            echo 805306368 > /sys/block/zram0/disksize
+            echo 536870912 > /sys/block/zram0/disksize
         fi
         mkswap /dev/block/zram0
         swapon /dev/block/zram0 -p 32758
@@ -302,7 +302,7 @@ else
     if [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 2097152 ]; then
         echo 10 > /sys/module/process_reclaim/parameters/pressure_min
         echo 1024 > /sys/module/process_reclaim/parameters/per_swap_size
-        echo "48432,63040,70648,95256,130296,145640" > /sys/module/lowmemorykiller/parameters/minfree
+        echo "18432,23040,27648,32256,55296,80640" > /sys/module/lowmemorykiller/parameters/minfree
         echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
     elif [ "$arch_type" == "aarch64" ] && [ $MemTotal -gt 1048576 ]; then
         echo 10 > /sys/module/process_reclaim/parameters/pressure_min
@@ -374,13 +374,11 @@ function enable_memory_features()
 
 function start_hbtp()
 {
-#Huaqin delete for ZQL1650-437 by sundaoyong for Disable improve touch at 2018/2/27 start
         # Start the Host based Touch processing but not in the power off mode.
-        #bootmode=`getprop ro.bootmode`
-        #if [ "charger" != $bootmode ]; then
-        #        start hbtp
-        #fi
-#Huaqin delete for ZQL1650-437 by sundaoyong for Disable improve touch at 2018/2/27 end
+        bootmode=`getprop ro.bootmode`
+        if [ "charger" != $bootmode ]; then
+                start hbtp
+        fi
 }
 
 case "$target" in
@@ -1707,19 +1705,6 @@ case "$target" in
                     8953_sched_dcvs_hmp
                 fi
                 echo 652800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-
-                # Bring up all cores online
-                echo 1 > /sys/devices/system/cpu/cpu1/online
-                echo 1 > /sys/devices/system/cpu/cpu2/online
-                echo 1 > /sys/devices/system/cpu/cpu3/online
-                echo 1 > /sys/devices/system/cpu/cpu4/online
-                echo 1 > /sys/devices/system/cpu/cpu5/online
-                echo 1 > /sys/devices/system/cpu/cpu6/online
-                echo 1 > /sys/devices/system/cpu/cpu7/online
-
-                # Enable low power modes
-                echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
-
                 # re-enable thermal & BCL core_control now
                 echo 1 > /sys/module/msm_thermal/core_control/enabled
                 for mode in /sys/devices/soc.0/qcom,bcl.*/mode
@@ -1738,6 +1723,18 @@ case "$target" in
                 do
                     echo -n enable > $mode
                 done
+
+                # Bring up all cores online
+                echo 1 > /sys/devices/system/cpu/cpu1/online
+                echo 1 > /sys/devices/system/cpu/cpu2/online
+                echo 1 > /sys/devices/system/cpu/cpu3/online
+                echo 1 > /sys/devices/system/cpu/cpu4/online
+                echo 1 > /sys/devices/system/cpu/cpu5/online
+                echo 1 > /sys/devices/system/cpu/cpu6/online
+                echo 1 > /sys/devices/system/cpu/cpu7/online
+
+                # Enable low power modes
+                echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 
                 # SMP scheduler
                 echo 85 > /proc/sys/kernel/sched_upmigrate
