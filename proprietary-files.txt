@@ -1888,8 +1888,8 @@ vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib64/vendor.sw.swfingerprint@1.0.so
 
 # Fingerprint Alipay
-vendor/lib/hw/libteeclientjni.so
-vendor/lib64/hw/libteeclientjni.so
+vendor/lib/libteeclientjni.so
+vendor/lib64/libteeclientjni.so
 -framework/ifaa_fingerprint.jar
 -priv-app/FingerprintServiceExtension/FingerprintServiceExtension.apk
 
