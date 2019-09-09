@@ -189,6 +189,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     fingerprintd
 
+# Fingerprint ifaa_fingerprint
+PRODUCT_BOOT_JARS += \
+    ifaa_fingerprint
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
