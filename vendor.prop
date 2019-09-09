@@ -143,6 +143,19 @@ persist.camera.preview.ubwc=0
 #disable UBWC for camera
 persist.camera.preview.ubwc=0
 
+#ZTEMT add for get total camera number
+ro.total.camera.number=3
+#ZTEMT add for focus
+persist.camera.depth.focus.cb=0
+
+#ZTEMT audio offload disable
+audio.offload.disable=1
+
+#device name for camera picture
+ro.config.devicename=nubia
+#camera extern mode exif when product this should be deleted.
+persist.sys.exif.model=nubia Z18mini
+
 # Create zram disk
 ro.vendor.qti.config.zram=true
 
