@@ -1870,6 +1870,7 @@ vendor/lib64/libFidoCrypto_vendor.so
 vendor/lib64/libFIDOKeyProvisioning.so
 
 # Fingerprint
+framework/vendor.qti.hardware.fingerprint-V1.0-java.jar:vendor/framework/vendor.qti.hardware.fingerprint-V1.0-java.jar
 vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
 vendor/bin/hw/vendor.sw.swfingerprint@1.0-service
 vendor/bin/qfp-daemon
@@ -1886,7 +1887,7 @@ vendor/lib64/nubia_mmi_fingerprint.so
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib64/vendor.sw.swfingerprint@1.0.so
 
-# Alipay
+# Fingerprint Alipay
 vendor/lib/libteeclientjni.so
 vendor/lib64/libteeclientjni.so
 -framework/ifaa_fingerprint.jar
