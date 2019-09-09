@@ -1871,16 +1871,20 @@ vendor/lib64/libFIDOKeyProvisioning.so
 
 # Fingerprint
 vendor/bin/hw/android.hardware.biometrics.fingerprint@2.1-service
-vendor/lib/hw/libteeclientjni.so
-vendor/lib64/hw/libteeclientjni.so
-
-# Fingerprint sensor
-framework/vendor.qti.hardware.fingerprint-V1.0-java.jar
+vendor/bin/hw/vendor.sw.swfingerprint@1.0-service
 vendor/bin/qfp-daemon
 vendor/etc/init/android.hardware.biometrics.fingerprint@2.1-service.rc
+vendor/etc/init/vendor.sw.swfingerprint@1.0-service.rc
+vendor/etc/nubia_mmi/layout/layout_fingerprint.xml
+vendor/lib/hw/fingerprint.sunwave.so
+vendor/lib/nubia_mmi_fingerprint.so
 vendor/lib/vendor.qti.hardware.fingerprint@1.0.so
+vendor/lib64/hw/fingerprint.sunwave.so
+vendor/lib64/hw/vendor.sw.swfingerprint@1.0-impl.so
 vendor/lib64/libqfp-service.so
+vendor/lib64/nubia_mmi_fingerprint.so
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
+vendor/lib64/vendor.sw.swfingerprint@1.0.so
 
 # FM
 lib/fm_helium.so
