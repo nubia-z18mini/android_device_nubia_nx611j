@@ -1886,6 +1886,12 @@ vendor/lib64/nubia_mmi_fingerprint.so
 vendor/lib64/vendor.qti.hardware.fingerprint@1.0.so
 vendor/lib64/vendor.sw.swfingerprint@1.0.so
 
+# Alipay
+vendor/lib/libteeclientjni.so
+vendor/lib64/libteeclientjni.so
+-framework/ifaa_fingerprint.jar
+-priv-app/FingerprintServiceExtension/FingerprintServiceExtension.apk
+
 # FM
 lib/fm_helium.so
 lib/libfm-hci.so
