@@ -2123,13 +2123,13 @@ case "$target" in
             done
             echo "cpufreq" > /sys/class/devfreq/soc:qcom,mincpubw/governor
 
-
+            # Disable Host based Touch processing on nx611j start
             # Start Host based Touch processing
-                case "$hw_platform" in
-                        "MTP" | "Surf" | "RCM" | "QRD" )
-                        start_hbtp
-                        ;;
-                esac
+            #    case "$hw_platform" in
+            #            "MTP" | "Surf" | "RCM" | "QRD" )
+            #            start_hbtp
+            #            ;;
+            #    esac
             ;;
         esac
         #Apply settings for sdm630
@@ -2137,11 +2137,12 @@ case "$target" in
             "318" | "327" )
 
             # Start Host based Touch processing
-            case "$hw_platform" in
-                "MTP" | "Surf" | "RCM" | "QRD" )
-                start_hbtp
-                ;;
-            esac
+            #case "$hw_platform" in
+            #    "MTP" | "Surf" | "RCM" | "QRD" )
+            #    start_hbtp
+            #    ;;
+            #esac
+            # Disable Host based Touch processing on nx611j end
 
             # Setting b.L scheduler parameters
             echo 85 > /proc/sys/kernel/sched_upmigrate
