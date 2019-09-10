@@ -262,6 +262,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lights.sdm660
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.lights=sdm660
+
+PRODUCT_PACKAGES += \
+    android.hardware.light-V2.0-java
+
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service
