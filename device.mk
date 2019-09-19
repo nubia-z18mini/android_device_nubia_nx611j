@@ -240,9 +240,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     lights.sdm660
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hardware.lights=sdm660
-
 PRODUCT_PACKAGES += \
     android.hardware.light-V2.0-java
 
@@ -311,14 +308,13 @@ DEVICE_PACKAGE_OVERLAYS += \
 PRODUCT_ENFORCE_RRO_TARGETS := \
     framework-res
 
-# Properties
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.am.reschedule_service=true \
-    ro.sys.fw.use_trim_settings=true
-
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power@1.1-service-qti
+
+# Properties
+-include $(LOCAL_PATH)/system_prop.mk
+-include $(LOCAL_PATH)/vendor_prop.mk
 
 # Public Libraries
 PRODUCT_COPY_FILES += \
@@ -422,10 +418,6 @@ PRODUCT_PACKAGES += \
 # USB
 PRODUCT_PACKAGES += \
 	android.hardware.usb@1.0-service
-
-# Vendor security patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.lineage.build.vendor_security_patch=2018-02-05
 
 # Verity
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc/c0c4000.sdhci/by-name/system
